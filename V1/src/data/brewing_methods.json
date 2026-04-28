@@ -1,0 +1,32 @@
+[
+  {
+    "id": "espresso",
+    "name": "Espresso",
+    "icon": "/img/methods/espresso.svg",
+    "short_description": "Court et intense, machine à percolation."
+  },
+  {
+    "id": "filtre",
+    "name": "Filtre / V60",
+    "icon": "/img/methods/filtre.svg",
+    "short_description": "Méthode douce et aromatique, idéale pour les profils fruités."
+  },
+  {
+    "id": "moka",
+    "name": "Cafetière italienne",
+    "icon": "/img/methods/moka.svg",
+    "short_description": "Le café corsé du quotidien, intermédiaire entre filtre et espresso."
+  },
+  {
+    "id": "aeropress",
+    "name": "Aeropress",
+    "icon": "/img/methods/aeropress.svg",
+    "short_description": "Polyvalente, met en valeur clarté et corps."
+  },
+  {
+    "id": "piston",
+    "name": "Piston (French Press)",
+    "icon": "/img/methods/piston.svg",
+    "short_description": "Texture pleine, immersion longue, profil rond."
+  }
+]

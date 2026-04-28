@@ -1,0 +1,232 @@
+[
+  {
+    "id": "aventurier_chocolate",
+    "name": "L'Aventurier Chocolaté",
+    "tagline": "Énergie franche, profondeur gourmande.",
+    "description": "Tu commences ta journée comme on lance une expédition : tu veux de la matière, du chocolat, du caractère.",
+    "illustration": "/img/archetypes/aventurier-chocolate.png",
+    "accent_color": "#5C3A21",
+    "match_tags": {
+      "moment": ["matin", "focus"],
+      "profil": ["gourmand-chocolate"],
+      "intensity": ["corse"],
+      "roast": ["medium", "dark"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "capucas", "percentage": 60}, {"coffee_id": "palanda", "percentage": 30}, {"coffee_id": "el_triunfo", "percentage": 10}],
+      "filtre":    [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "palanda", "percentage": 30}, {"coffee_id": "el_triunfo", "percentage": 20}],
+      "moka":      [{"coffee_id": "capucas", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}],
+      "aeropress": [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "palanda", "percentage": 30}, {"coffee_id": "el_triunfo", "percentage": 20}],
+      "piston":    [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "palanda", "percentage": 50}]
+    },
+    "blend_story": "Capucas pour la base chocolatée et structurée, Palanda pour la rondeur miellée, El Triunfo pour adoucir l'ensemble.",
+    "alternatives_hint": ["capucas", "palanda"]
+  },
+  {
+    "id": "gourmand_reconfort",
+    "name": "Le Gourmand Réconfort",
+    "tagline": "Une pause cocoon, douce et chaleureuse.",
+    "description": "Tu cherches le café qui réconforte : chocolat, caramel, miel, sans agressivité.",
+    "illustration": "/img/archetypes/gourmand-reconfort.png",
+    "accent_color": "#7A5230",
+    "match_tags": {
+      "moment": ["apres-midi"],
+      "profil": ["gourmand-chocolate"],
+      "intensity": ["equilibre"],
+      "roast": ["medium"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "palanda", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}],
+      "filtre":    [{"coffee_id": "palanda", "percentage": 50}, {"coffee_id": "el_triunfo", "percentage": 50}],
+      "moka":      [{"coffee_id": "palanda", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}],
+      "aeropress": [{"coffee_id": "palanda", "percentage": 50}, {"coffee_id": "el_triunfo", "percentage": 50}],
+      "piston":    [{"coffee_id": "palanda", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}]
+    },
+    "blend_story": "Palanda apporte la rondeur miellée, El Triunfo l'accessibilité chocolatée. Un duo doux et confortable.",
+    "alternatives_hint": ["palanda", "el_triunfo"]
+  },
+  {
+    "id": "soir_chocolate_doux",
+    "name": "Le Velours du Soir",
+    "tagline": "Le chocolat sans agitation.",
+    "description": "Tu veux un café gourmand mais qui ne te tienne pas éveillé. Doux, profond, apaisant.",
+    "illustration": "/img/archetypes/soir-chocolate-doux.png",
+    "accent_color": "#3E2A1A",
+    "match_tags": {
+      "moment": ["soir"],
+      "profil": ["gourmand-chocolate"],
+      "intensity": ["doux"],
+      "roast": ["medium"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "el_triunfo", "percentage": 70}, {"coffee_id": "palanda", "percentage": 30}],
+      "filtre":    [{"coffee_id": "el_triunfo", "percentage": 70}, {"coffee_id": "palanda", "percentage": 30}],
+      "moka":      [{"coffee_id": "el_triunfo", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}],
+      "aeropress": [{"coffee_id": "el_triunfo", "percentage": 70}, {"coffee_id": "palanda", "percentage": 30}],
+      "piston":    [{"coffee_id": "el_triunfo", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}]
+    },
+    "blend_story": "El Triunfo en majorité pour la douceur, Palanda pour une rondeur soyeuse. Un café du soir chocolaté sans excès.",
+    "alternatives_hint": ["el_triunfo", "palanda"]
+  },
+  {
+    "id": "matin_vif",
+    "name": "Le Matin Vif",
+    "tagline": "Réveil net, fruits et fraîcheur.",
+    "description": "Tu démarres avec de l'éclat : agrumes, fruits secs, une acidité qui ouvre la journée.",
+    "illustration": "/img/archetypes/matin-vif.png",
+    "accent_color": "#C97B3F",
+    "match_tags": {
+      "moment": ["matin"],
+      "profil": ["vif-fruite"],
+      "intensity": ["equilibre"],
+      "roast": ["light", "medium"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "salomon", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "filtre":    [{"coffee_id": "salomon", "percentage": 50}, {"coffee_id": "el_palomar", "percentage": 50}],
+      "moka":      [{"coffee_id": "salomon", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "aeropress": [{"coffee_id": "salomon", "percentage": 50}, {"coffee_id": "el_palomar", "percentage": 50}],
+      "piston":    [{"coffee_id": "salomon", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}]
+    },
+    "blend_story": "Salomon apporte les notes vives de citron et pêche, El Palomar la structure de fruits secs.",
+    "alternatives_hint": ["salomon", "el_palomar"]
+  },
+  {
+    "id": "apresmidi_solaire",
+    "name": "L'Après-midi Solaire",
+    "tagline": "Légèreté fruitée, douceur ensoleillée.",
+    "description": "Une pause fruitée et lumineuse, sans intensité, juste pour le plaisir.",
+    "illustration": "/img/archetypes/apresmidi-solaire.png",
+    "accent_color": "#E8A45C",
+    "match_tags": {
+      "moment": ["apres-midi"],
+      "profil": ["vif-fruite"],
+      "intensity": ["doux"],
+      "roast": ["light"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "salomon", "percentage": 70}, {"coffee_id": "el_triunfo", "percentage": 30}],
+      "filtre":    [{"coffee_id": "salomon", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "moka":      [{"coffee_id": "salomon", "percentage": 70}, {"coffee_id": "el_triunfo", "percentage": 30}],
+      "aeropress": [{"coffee_id": "salomon", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "piston":    [{"coffee_id": "salomon", "percentage": 70}, {"coffee_id": "el_triunfo", "percentage": 30}]
+    },
+    "blend_story": "Salomon en vedette pour ses fruits, complété par une note adoucissante. Une pause solaire.",
+    "alternatives_hint": ["salomon", "el_palomar"]
+  },
+  {
+    "id": "focus_intense",
+    "name": "Le Focus Intense",
+    "tagline": "Concentration soutenue, café qui tient.",
+    "description": "Tu as besoin d'un café qui te porte sur la durée : intense, structurant, sans détour.",
+    "illustration": "/img/archetypes/focus-intense.png",
+    "accent_color": "#2E1810",
+    "match_tags": {
+      "moment": ["focus"],
+      "profil": ["gourmand-chocolate", "vif-fruite"],
+      "intensity": ["corse"],
+      "roast": ["medium", "dark"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "palanda", "percentage": 30}, {"coffee_id": "salomon", "percentage": 20}],
+      "filtre":    [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "salomon", "percentage": 30}, {"coffee_id": "el_palomar", "percentage": 20}],
+      "moka":      [{"coffee_id": "capucas", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}],
+      "aeropress": [{"coffee_id": "capucas", "percentage": 50}, {"coffee_id": "salomon", "percentage": 30}, {"coffee_id": "el_palomar", "percentage": 20}],
+      "piston":    [{"coffee_id": "capucas", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}]
+    },
+    "blend_story": "Capucas pour la structure, Palanda pour la rondeur, Salomon pour l'éveil. Un trio qui tient la durée.",
+    "alternatives_hint": ["capucas", "palanda"]
+  },
+  {
+    "id": "explorateur_floral",
+    "name": "L'Explorateur Floral",
+    "tagline": "Complexité, élégance, finesse florale.",
+    "description": "Tu veux un café qui se découvre par couches : fleurs, fruits, complexité aromatique.",
+    "illustration": "/img/archetypes/explorateur-floral.png",
+    "accent_color": "#6B7E5A",
+    "match_tags": {
+      "moment": ["matin", "apres-midi"],
+      "profil": ["complexe-floral"],
+      "intensity": ["equilibre"],
+      "roast": ["light"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "salomon", "percentage": 40}],
+      "filtre":    [{"coffee_id": "kitche", "percentage": 70}, {"coffee_id": "salomon", "percentage": 30}],
+      "moka":      [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "aeropress": [{"coffee_id": "kitche", "percentage": 70}, {"coffee_id": "salomon", "percentage": 30}],
+      "piston":    [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}]
+    },
+    "blend_story": "Kitché en vedette pour sa complexité florale, Salomon pour ajouter une note fruitée.",
+    "alternatives_hint": ["kitche", "salomon"]
+  },
+  {
+    "id": "soir_floral_doux",
+    "name": "Le Soir Floral",
+    "tagline": "Subtil, délicat, presque thé.",
+    "description": "Une fin de journée tout en finesse, fleurs et clarté, sans poids.",
+    "illustration": "/img/archetypes/soir-floral-doux.png",
+    "accent_color": "#A8B59C",
+    "match_tags": {
+      "moment": ["soir"],
+      "profil": ["complexe-floral", "vif-fruite"],
+      "intensity": ["doux"],
+      "roast": ["light"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}],
+      "filtre":    [{"coffee_id": "kitche", "percentage": 70}, {"coffee_id": "el_palomar", "percentage": 30}],
+      "moka":      [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}],
+      "aeropress": [{"coffee_id": "kitche", "percentage": 70}, {"coffee_id": "el_palomar", "percentage": 30}],
+      "piston":    [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_triunfo", "percentage": 40}]
+    },
+    "blend_story": "Kitché pour la finesse florale, complété pour adoucir la tasse en fin de journée.",
+    "alternatives_hint": ["kitche", "el_palomar"]
+  },
+  {
+    "id": "focus_clarte",
+    "name": "Le Focus Clarté",
+    "tagline": "Esprit clair, café précis.",
+    "description": "Tu veux un café net, précis, qui ne distrait pas mais qui éveille.",
+    "illustration": "/img/archetypes/focus-clarte.png",
+    "accent_color": "#4A6B5E",
+    "match_tags": {
+      "moment": ["focus"],
+      "profil": ["complexe-floral"],
+      "intensity": ["equilibre"],
+      "roast": ["light", "medium"]
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "kitche", "percentage": 50}, {"coffee_id": "el_palomar", "percentage": 50}],
+      "filtre":    [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "moka":      [{"coffee_id": "kitche", "percentage": 50}, {"coffee_id": "el_palomar", "percentage": 50}],
+      "aeropress": [{"coffee_id": "kitche", "percentage": 60}, {"coffee_id": "el_palomar", "percentage": 40}],
+      "piston":    [{"coffee_id": "kitche", "percentage": 50}, {"coffee_id": "el_palomar", "percentage": 50}]
+    },
+    "blend_story": "Kitché et El Palomar à parts égales : un duo précis, fruits secs et clarté florale.",
+    "alternatives_hint": ["kitche", "el_palomar"]
+  },
+  {
+    "id": "decouverte",
+    "name": "Le Curieux",
+    "tagline": "L'entrée idéale dans le café de spécialité.",
+    "description": "Tu cherches un café accessible et bien tempéré, pour découvrir sans te tromper.",
+    "illustration": "/img/archetypes/decouverte.png",
+    "accent_color": "#8B6F47",
+    "match_tags": {
+      "moment": [],
+      "profil": [],
+      "intensity": [],
+      "roast": []
+    },
+    "blend_recipes": {
+      "espresso":  [{"coffee_id": "el_triunfo", "percentage": 60}, {"coffee_id": "palanda", "percentage": 40}],
+      "filtre":    [{"coffee_id": "el_triunfo", "percentage": 60}, {"coffee_id": "salomon", "percentage": 40}],
+      "moka":      [{"coffee_id": "el_triunfo", "percentage": 70}, {"coffee_id": "palanda", "percentage": 30}],
+      "aeropress": [{"coffee_id": "el_triunfo", "percentage": 60}, {"coffee_id": "salomon", "percentage": 40}],
+      "piston":    [{"coffee_id": "el_triunfo", "percentage": 70}, {"coffee_id": "palanda", "percentage": 30}]
+    },
+    "blend_story": "El Triunfo comme base accessible, complété pour donner du caractère.",
+    "alternatives_hint": ["el_triunfo", "capucas"]
+  }
+]
