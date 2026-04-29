@@ -3,6 +3,7 @@ import Welcome from './components/Welcome.jsx';
 import ProgressBar from './components/ProgressBar.jsx';
 import BubbleQuestion from './components/BubbleQuestion.jsx';
 import DeepenPrompt from './components/DeepenPrompt.jsx';
+import Result from './components/Result/Result.jsx';
 import { saveQuizState, loadQuizState, clearQuizState } from './lib/storage.js';
 
 const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'deepen', 'q5', 'q6', 'q7', 'q8', 'result'];
@@ -179,13 +180,7 @@ export default function App() {
       )}
 
       {step === 'result' && (
-        <div style={{padding:'2rem', textAlign:'center'}}>
-          <p>(Result page — à implémenter)</p>
-          <pre style={{textAlign:'left', display:'inline-block'}}>{JSON.stringify(quiz, null, 2)}</pre>
-          <div style={{marginTop:'1rem'}}>
-            <button onClick={restart}>Recommencer</button>
-          </div>
-        </div>
+        <Result quiz={quiz} onRestart={restart} />
       )}
     </main>
   );
