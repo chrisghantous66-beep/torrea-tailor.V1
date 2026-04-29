@@ -6,7 +6,7 @@ import coffees from '../../data/coffees.json';
 import archetypes from '../../data/archetypes.json';
 import { match } from '../../lib/matching.js';
 
-export default function Result({ quiz, onRestart }) {
+export default function Result({ quiz, onRestart, onShare }) {
   const result = useMemo(() => match(quiz, { coffees, archetypes }), [quiz]);
 
   return (
@@ -18,6 +18,11 @@ export default function Result({ quiz, onRestart }) {
         <button type="button" className="cta cta--secondary" onClick={onRestart}>
           Recommencer
         </button>
+        {onShare && (
+          <button type="button" className="cta cta--secondary" onClick={onShare}>
+            Partager mon profil
+          </button>
+        )}
       </div>
     </div>
   );

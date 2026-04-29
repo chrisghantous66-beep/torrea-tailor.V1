@@ -109,11 +109,29 @@ const QUESTIONS = {
   },
 };
 
+function encodeQuiz(quiz) {
+  return btoa(unescape(encodeURIComponent(JSON.stringify(quiz))));
+}
+function decodeQuiz(encoded) {
+  try { return JSON.parse(decodeURIComponent(escape(atob(encoded)))); }
+  catch { return null; }
+}
+
 export default function App() {
   const [step, setStep] = useState('welcome');
   const [quiz, setQuiz] = useState({});
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const shared = params.get('result');
+    if (shared) {
+      const q = decodeQuiz(shared);
+      if (q) {
+        setQuiz(q);
+        setStep('result');
+        return;
+      }
+    }
     const saved = loadQuizState();
     if (saved?.step && saved?.quiz) {
       setStep(saved.step);
@@ -138,9 +156,45 @@ export default function App() {
 
   const stepIndex = STEPS.indexOf(step);
   const showProgress = stepIndex >= 1 && stepIndex <= 5;
+  const canGoBack = stepIndex > 1 && step !== 'result';
+
+  const goBack = () => {
+    if (stepIndex > 1) {
+      const prev = STEPS[stepIndex - 1];
+      // Skip "deepen" en arrière (il n'a pas d'état à restaurer)
+      setStep(prev === 'deepen' ? 'q4' : prev);
+    }
+  };
+
+  const shareUrl = () => `${window.location.origin}${window.location.pathname}?result=${encodeQuiz(quiz)}`;
+
+  const handleShare = async () => {
+    const url = shareUrl();
+    try {
+      if (navigator.share) {
+        await navigator.share({ url, title: 'Mon profil café Torrea' });
+      } else if (navigator.clipboard) {
+        await navigator.clipboard.writeText(url);
+        alert('Lien copié dans le presse-papier !');
+      }
+    } catch {
+      // utilisateur a annulé le partage natif — silencieux
+    }
+  };
 
   return (
     <main>
+      {canGoBack && (
+        <button
+          type="button"
+          className="back-btn"
+          onClick={goBack}
+          aria-label="Revenir à la question précédente"
+        >
+          ← Retour
+        </button>
+      )}
+
       {showProgress && (
         <ProgressBar current={stepIndex} total={TOTAL_MANDATORY} />
       )}
@@ -166,7 +220,7 @@ export default function App() {
         );
       })()}
 
-      {step === 'q5' && quiz.notes_specifiques && (
+      {step === 'q5' && quiz.notes_specifiques && quiz.notes_specifiques.length > 0 && (
         <div style={{textAlign:'center', marginTop:'1rem'}}>
           <button className="cta" onClick={() => setStep(QUESTIONS.q5.next)}>Suivant</button>
         </div>
@@ -180,7 +234,7 @@ export default function App() {
       )}
 
       {step === 'result' && (
-        <Result quiz={quiz} onRestart={restart} />
+        <Result quiz={quiz} onRestart={restart} onShare={handleShare} />
       )}
     </main>
   );
