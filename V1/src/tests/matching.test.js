@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import archetypes from '../data/archetypes.json';
-import { scoreArchetype, selectArchetype } from '../lib/matching.js';
+import coffees from '../data/coffees.json';
+import { scoreArchetype, selectArchetype, computeAlternatives } from '../lib/matching.js';
 
 const aventurier = archetypes.find(a => a.id === 'aventurier_chocolate');
 
@@ -72,5 +73,30 @@ describe('selectArchetype', () => {
     };
     const result = selectArchetype(archetypes, quiz);
     expect(result.id).toBe('soir_chocolate_doux');
+  });
+});
+
+describe('computeAlternatives', () => {
+  it('retourne 2 cafés ranking-déterminé', () => {
+    const quiz = {
+      brewing_method: 'espresso',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'corse',
+    };
+    const blendComposition = [{ coffee_id: 'capucas', percentage: 60 }];
+    const alts = computeAlternatives(coffees, quiz, blendComposition);
+    expect(alts).toHaveLength(2);
+    expect(alts[0].coffee.id).not.toBe('capucas');
+  });
+
+  it('exclut un café déjà majoritaire dans le blend', () => {
+    const quiz = {
+      brewing_method: 'espresso',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'corse',
+    };
+    const blendComposition = [{ coffee_id: 'capucas', percentage: 60 }];
+    const alts = computeAlternatives(coffees, quiz, blendComposition);
+    expect(alts.every(a => a.coffee.id !== 'capucas')).toBe(true);
   });
 });

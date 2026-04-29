@@ -88,3 +88,65 @@ function matchesExperience(archetype, level) {
   if (level === 'amateur' && (profils.includes('gourmand-chocolate') || profils.includes('vif-fruite'))) return true;
   return false;
 }
+
+export function computeAlternatives(coffees, quiz, blendComposition) {
+  const majorityIds = blendComposition
+    .filter(c => c.percentage > 50)
+    .map(c => c.coffee_id);
+
+  const scored = coffees
+    .filter(c => !majorityIds.includes(c.id))
+    .map(c => ({ coffee: c, score: scoreCoffeeAlt(c, quiz) }));
+
+  scored.sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, 2).map(({ coffee }) => ({
+    coffee,
+    reason: buildAltReason(coffee, quiz),
+  }));
+}
+
+function scoreCoffeeAlt(coffee, quiz) {
+  let s = 0;
+  s += 2 * matchIntensityScore(coffee.profile.intensity, quiz.intensity);
+  s += 2 * matchProfilScore(coffee.flavor_tags, quiz.profil_gustatif);
+  s += 1 * matchBrewingScore(coffee.best_for, quiz.brewing_method);
+  s += 1 * matchNotesScore(coffee.tasting_notes, quiz.notes_specifiques);
+  return s;
+}
+
+function matchIntensityScore(coffeeIntensity, userIntensity) {
+  const ranges = {
+    doux: [1, 2],
+    equilibre: [2, 4],
+    corse: [4, 5],
+  };
+  const [min, max] = ranges[userIntensity] || [1, 5];
+  return coffeeIntensity >= min && coffeeIntensity <= max ? 1 : 0;
+}
+
+function matchProfilScore(flavorTags, profil) {
+  const profilToTags = {
+    'gourmand-chocolate': ['gourmand', 'chocolate', 'reconfortant', 'rond'],
+    'vif-fruite': ['vif', 'fruite'],
+    'complexe-floral': ['complexe', 'floral'],
+  };
+  const targetTags = profilToTags[profil] || [];
+  return flavorTags.some(t => targetTags.includes(t)) ? 1 : 0;
+}
+
+function matchBrewingScore(bestFor, brewingMethod) {
+  if (!brewingMethod) return 0.5;
+  return bestFor.includes(brewingMethod) ? 1 : 0.5;
+}
+
+function matchNotesScore(tastingNotes, userNotes) {
+  if (!userNotes?.length) return 0;
+  const overlap = tastingNotes.filter(n => userNotes.includes(n)).length;
+  return Math.min(overlap * 0.5, 1);
+}
+
+function buildAltReason(coffee, quiz) {
+  const tags = coffee.flavor_tags.slice(0, 2).join(' et ');
+  return `${coffee.name} (${coffee.origin}) — ${tags}, en café pur.`;
+}
