@@ -1,0 +1,61 @@
+:root {
+  --color-primary: #5C3A21;
+  --color-bg: #FAF6F1;
+  --color-text: #2E1810;
+  --color-bubble-bg: #FFFFFF;
+  --color-bubble-border: #D4C5B0;
+  --color-bubble-selected: #5C3A21;
+  --radius-bubble: 9999px;
+  --transition: 200ms ease;
+}
+
+.bubble-question {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.bubble-question__title {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  text-align: center;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.bubble-question__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.bubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  background: var(--color-bubble-bg);
+  border: 2px solid var(--color-bubble-border);
+  border-radius: var(--radius-bubble);
+  color: var(--color-text);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.bubble:hover { transform: translateY(-2px); border-color: var(--color-primary); }
+.bubble--selected {
+  background: var(--color-bubble-selected);
+  border-color: var(--color-bubble-selected);
+  color: white;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble { transition: none; }
+  .bubble:hover { transform: none; }
+}
