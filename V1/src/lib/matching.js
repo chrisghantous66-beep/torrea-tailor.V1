@@ -23,28 +23,36 @@ export function scoreArchetype(archetype, quiz) {
 }
 
 function hasNoteOverlap(archetype, userNotes) {
-  const profil = archetype.match_tags.profil[0] || '';
+  const profils = archetype.match_tags.profil;
   const choc = ['chocolat', 'caramel', 'noisette'];
   const fruit = ['agrumes', 'fruits secs', 'pêche', 'citron', 'fruits rouges'];
   const floral = ['floral', 'fleur'];
 
-  if (profil.includes('chocolate') && userNotes.some(n => choc.includes(n))) return true;
-  if (profil.includes('fruite') && userNotes.some(n => fruit.includes(n))) return true;
-  if (profil.includes('floral') && userNotes.some(n => floral.includes(n))) return true;
+  const isChoc = profils.some(p => p.includes('chocolate'));
+  const isFruite = profils.some(p => p.includes('fruite'));
+  const isFloral = profils.some(p => p.includes('floral'));
+
+  if (isChoc && userNotes.some(n => choc.includes(n))) return true;
+  if (isFruite && userNotes.some(n => fruit.includes(n))) return true;
+  if (isFloral && userNotes.some(n => floral.includes(n))) return true;
   return false;
 }
 
 function matchesAcidity(archetype, acidite) {
-  const profil = archetype.match_tags.profil[0] || '';
-  if (acidite === 'faible' && profil.includes('chocolate')) return true;
-  if (acidite === 'moyenne') return true;
-  if (acidite === 'haute' && (profil.includes('fruite') || profil.includes('floral'))) return true;
+  const profils = archetype.match_tags.profil;
+  const isChoc = profils.some(p => p.includes('chocolate'));
+  const isFruite = profils.some(p => p.includes('fruite'));
+  const isFloral = profils.some(p => p.includes('floral'));
+
+  if (acidite === 'faible' && isChoc) return true;
+  if (acidite === 'moyenne' && (isChoc || isFruite)) return true;
+  if (acidite === 'haute' && (isFruite || isFloral)) return true;
   return false;
 }
 
 function matchesExperience(archetype, level) {
-  if (level === 'debutant' && archetype.id === 'decouverte') return true;
-  if (level === 'connaisseur' && archetype.match_tags.profil.includes('complexe-floral')) return true;
-  if (level === 'amateur') return true;
+  const profils = archetype.match_tags.profil;
+  if (level === 'connaisseur' && profils.includes('complexe-floral')) return true;
+  if (level === 'amateur' && (profils.includes('gourmand-chocolate') || profils.includes('vif-fruite'))) return true;
   return false;
 }

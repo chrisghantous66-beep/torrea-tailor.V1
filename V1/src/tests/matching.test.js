@@ -35,6 +35,7 @@ describe('scoreArchetype', () => {
       acidite_toleree: 'faible',
       experience_level: 'amateur',
     };
-    expect(scoreArchetype(aventurier, quiz)).toBeGreaterThan(10);
+    // base 10 + chocolat (note overlap, choc bucket) +1 + faible+choc +1 + amateur+gourmand-chocolate +1 = 13
+    expect(scoreArchetype(aventurier, quiz)).toBe(13);
   });
 });
