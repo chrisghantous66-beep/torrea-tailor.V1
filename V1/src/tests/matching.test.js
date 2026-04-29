@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import archetypes from '../data/archetypes.json';
-import { scoreArchetype } from '../lib/matching.js';
+import { scoreArchetype, selectArchetype } from '../lib/matching.js';
 
 const aventurier = archetypes.find(a => a.id === 'aventurier_chocolate');
 
@@ -37,5 +37,40 @@ describe('scoreArchetype', () => {
     };
     // base 10 + chocolat (note overlap, choc bucket) +1 + faible+choc +1 + amateur+gourmand-chocolate +1 = 13
     expect(scoreArchetype(aventurier, quiz)).toBe(13);
+  });
+});
+
+describe('selectArchetype', () => {
+  it('retourne l\'archétype au meilleur score', () => {
+    const quiz = {
+      moment: 'matin',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'corse',
+      roast_level: 'dark',
+    };
+    const result = selectArchetype(archetypes, quiz);
+    expect(result.id).toBe('aventurier_chocolate');
+  });
+
+  it('fallback sur "decouverte" si aucun score >= seuil', () => {
+    const quiz = {
+      moment: 'jamais',
+      profil_gustatif: 'inexistant',
+      intensity: 'inconnu',
+      roast_level: 'inconnu',
+    };
+    const result = selectArchetype(archetypes, quiz);
+    expect(result.id).toBe('decouverte');
+  });
+
+  it('départage par les 4 axes obligatoires en cas d\'égalité', () => {
+    const quiz = {
+      moment: 'soir',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'doux',
+      roast_level: 'medium',
+    };
+    const result = selectArchetype(archetypes, quiz);
+    expect(result.id).toBe('soir_chocolate_doux');
   });
 });

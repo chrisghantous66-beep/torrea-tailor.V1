@@ -1,3 +1,35 @@
+const FLOOR_SCORE = 3;
+const FALLBACK_ID = 'decouverte';
+
+export function selectArchetype(archetypes, quiz) {
+  const scored = archetypes
+    .filter(a => a.id !== FALLBACK_ID)
+    .map(a => ({ archetype: a, score: scoreArchetype(a, quiz) }));
+
+  scored.sort((a, b) => {
+    if (b.score !== a.score) return b.score - a.score;
+    const aMandatory = mandatoryMatchCount(a.archetype, quiz);
+    const bMandatory = mandatoryMatchCount(b.archetype, quiz);
+    if (bMandatory !== aMandatory) return bMandatory - aMandatory;
+    return a.archetype.id.localeCompare(b.archetype.id);
+  });
+
+  const winner = scored[0];
+  if (!winner || winner.score < FLOOR_SCORE) {
+    return archetypes.find(a => a.id === FALLBACK_ID);
+  }
+  return winner.archetype;
+}
+
+function mandatoryMatchCount(archetype, quiz) {
+  let count = 0;
+  if (archetype.match_tags.moment.includes(quiz.moment)) count++;
+  if (archetype.match_tags.profil.includes(quiz.profil_gustatif)) count++;
+  if (archetype.match_tags.intensity.includes(quiz.intensity)) count++;
+  if (archetype.match_tags.roast?.includes(quiz.roast_level)) count++;
+  return count;
+}
+
 export function scoreArchetype(archetype, quiz) {
   let score = 0;
   const tags = archetype.match_tags;
