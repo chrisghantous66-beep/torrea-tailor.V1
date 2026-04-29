@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import archetypes from '../data/archetypes.json';
 import coffees from '../data/coffees.json';
-import { scoreArchetype, selectArchetype, computeAlternatives } from '../lib/matching.js';
+import { scoreArchetype, selectArchetype, computeAlternatives, match, validateRecipes } from '../lib/matching.js';
 
 const aventurier = archetypes.find(a => a.id === 'aventurier_chocolate');
 
@@ -98,5 +98,59 @@ describe('computeAlternatives', () => {
     const blendComposition = [{ coffee_id: 'capucas', percentage: 60 }];
     const alts = computeAlternatives(coffees, quiz, blendComposition);
     expect(alts.every(a => a.coffee.id !== 'capucas')).toBe(true);
+  });
+});
+
+describe('match (intégration)', () => {
+  it('retourne archetype + blend + alternatives + roast_level', () => {
+    const quiz = {
+      brewing_method: 'espresso',
+      moment: 'matin',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'corse',
+      roast_level: 'dark',
+    };
+    const result = match(quiz, { coffees, archetypes });
+
+    expect(result.archetype.id).toBe('aventurier_chocolate');
+    expect(result.blend.method).toBe('espresso');
+    expect(result.blend.roast_level).toBe('dark');
+    expect(result.blend.composition.length).toBeGreaterThan(0);
+    expect(result.blend.composition.reduce((a, c) => a + c.percentage, 0)).toBe(100);
+    expect(result.alternatives).toHaveLength(2);
+  });
+
+  it('fallback sur recette espresso si la recette du mode est absente', () => {
+    const fakeArch = {
+      ...archetypes[0],
+      blend_recipes: { espresso: archetypes[0].blend_recipes.espresso },
+    };
+    const quiz = {
+      brewing_method: 'aeropress',
+      moment: 'matin',
+      profil_gustatif: 'gourmand-chocolate',
+      intensity: 'corse',
+      roast_level: 'dark',
+    };
+    const result = match(quiz, { coffees, archetypes: [fakeArch, archetypes.find(a => a.id === 'decouverte')] });
+    expect(result.blend.composition.length).toBe(fakeArch.blend_recipes.espresso.length);
+  });
+});
+
+describe('validateRecipes', () => {
+  it('toutes les recettes des archétypes seed somment à 100%', () => {
+    const errors = validateRecipes(archetypes);
+    expect(errors).toEqual([]);
+  });
+
+  it('toutes les recettes référencent des coffee_id existants', () => {
+    const validIds = new Set(coffees.map(c => c.id));
+    archetypes.forEach(a => {
+      Object.values(a.blend_recipes).forEach(recipe => {
+        recipe.forEach(item => {
+          expect(validIds.has(item.coffee_id)).toBe(true);
+        });
+      });
+    });
   });
 });

@@ -150,3 +150,44 @@ function buildAltReason(coffee, quiz) {
   const tags = coffee.flavor_tags.slice(0, 2).join(' et ');
   return `${coffee.name} (${coffee.origin}) — ${tags}, en café pur.`;
 }
+
+export function match(quiz, { coffees, archetypes }) {
+  const archetype = selectArchetype(archetypes, quiz);
+  const recipe = archetype.blend_recipes[quiz.brewing_method]
+              || archetype.blend_recipes.espresso;
+
+  if (!archetype.blend_recipes[quiz.brewing_method]) {
+    console.warn(`Recipe absente pour ${archetype.id}/${quiz.brewing_method}, fallback sur espresso`);
+  }
+
+  const composition = recipe.map(item => ({
+    coffee: coffees.find(c => c.id === item.coffee_id),
+    percentage: item.percentage,
+  }));
+
+  const alternatives = computeAlternatives(coffees, quiz, recipe);
+
+  return {
+    archetype,
+    blend: {
+      method: quiz.brewing_method,
+      roast_level: quiz.roast_level,
+      composition,
+      story: archetype.blend_story,
+    },
+    alternatives,
+  };
+}
+
+export function validateRecipes(archetypes) {
+  const errors = [];
+  archetypes.forEach(a => {
+    Object.entries(a.blend_recipes).forEach(([method, recipe]) => {
+      const sum = recipe.reduce((acc, r) => acc + r.percentage, 0);
+      if (sum !== 100) {
+        errors.push(`${a.id}/${method}: somme = ${sum}, attendu 100`);
+      }
+    });
+  });
+  return errors;
+}
