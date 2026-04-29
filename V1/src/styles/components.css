@@ -123,3 +123,19 @@
   box-shadow: 0 8px 24px rgba(92, 58, 33, 0.25);
 }
 @media (prefers-reduced-motion: reduce) { .cta { transition: none; } .cta:hover { transform: none; } }
+
+.deepen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.deepen__title { font-size: 1.5rem; color: var(--color-primary); }
+.deepen__hint { color: var(--color-text); opacity: 0.75; }
+.deepen__actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem; }
+.cta--secondary { background: transparent; color: var(--color-primary); border: 2px solid var(--color-primary); }
+.cta--secondary:hover { background: var(--color-primary); color: white; }

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Welcome from './components/Welcome.jsx';
 import ProgressBar from './components/ProgressBar.jsx';
 import BubbleQuestion from './components/BubbleQuestion.jsx';
+import DeepenPrompt from './components/DeepenPrompt.jsx';
 import { saveQuizState, loadQuizState, clearQuizState } from './lib/storage.js';
 
 const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'deepen', 'q5', 'q6', 'q7', 'q8', 'result'];
@@ -61,6 +62,50 @@ const QUESTIONS = {
       { id: 'dark', label: 'Dark — Corsé, chocolaté' },
     ],
   },
+  q5: {
+    key: 'notes_specifiques',
+    question: 'Des notes que tu adores ? (optionnel, plusieurs choix)',
+    next: 'q6',
+    multi: true,
+    options: [
+      { id: 'chocolat', label: 'Chocolat' },
+      { id: 'caramel', label: 'Caramel' },
+      { id: 'agrumes', label: 'Agrumes' },
+      { id: 'fruits secs', label: 'Fruits secs' },
+      { id: 'floral', label: 'Floral' },
+      { id: 'pêche', label: 'Pêche' },
+    ],
+  },
+  q6: {
+    key: 'experience_level',
+    question: 'Ton niveau avec le café ?',
+    next: 'q7',
+    options: [
+      { id: 'debutant', label: 'Débutant' },
+      { id: 'amateur', label: 'Amateur' },
+      { id: 'connaisseur', label: 'Connaisseur' },
+    ],
+  },
+  q7: {
+    key: 'acidite_toleree',
+    question: 'Tu aimes l\'acidité ?',
+    next: 'q8',
+    options: [
+      { id: 'faible', label: 'Pas trop' },
+      { id: 'moyenne', label: 'Modérée' },
+      { id: 'haute', label: 'Beaucoup' },
+    ],
+  },
+  q8: {
+    key: 'consommation',
+    question: 'Combien de cafés par jour ?',
+    next: 'result',
+    options: [
+      { id: '1-2', label: '1-2' },
+      { id: '3-4', label: '3-4' },
+      { id: '5+', label: '5 et plus' },
+    ],
+  },
 };
 
 export default function App() {
@@ -101,23 +146,36 @@ export default function App() {
 
       {step === 'welcome' && <Welcome onStart={() => setStep('q0')} />}
 
-      {['q0','q1','q2','q3','q4'].includes(step) && (() => {
+      {['q0','q1','q2','q3','q4','q5','q6','q7','q8'].includes(step) && (() => {
         const q = QUESTIONS[step];
         return (
           <BubbleQuestion
             question={q.question}
             options={q.options}
             value={quiz[q.key]}
-            onChange={(val) => update(q.key, val, q.next)}
+            onChange={(val) => {
+              if (q.multi) {
+                setQuiz(prev => ({ ...prev, [q.key]: val }));
+              } else {
+                update(q.key, val, q.next);
+              }
+            }}
+            multi={q.multi}
           />
         );
       })()}
 
-      {step === 'deepen' && (
-        <div style={{padding:'2rem', textAlign:'center'}}>
-          <p>(Deepen prompt — à implémenter)</p>
-          <button className="cta" onClick={() => setStep('result')}>Voir le résultat</button>
+      {step === 'q5' && quiz.notes_specifiques && (
+        <div style={{textAlign:'center', marginTop:'1rem'}}>
+          <button className="cta" onClick={() => setStep(QUESTIONS.q5.next)}>Suivant</button>
         </div>
+      )}
+
+      {step === 'deepen' && (
+        <DeepenPrompt
+          onShow={() => setStep('result')}
+          onDeepen={() => setStep('q5')}
+        />
       )}
 
       {step === 'result' && (
