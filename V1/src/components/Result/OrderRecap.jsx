@@ -3,6 +3,10 @@ import coffees from '../../data/coffees.json';
 import archetypes from '../../data/archetypes.json';
 import { match } from '../../lib/matching.js';
 
+// 👉 À MODIFIER une fois le produit WooCommerce créé sur torrea.fr.
+// Exemple final : 'https://torrea.fr/product/blend-personnalise-torrea-tailor/'
+const BLEND_PRODUCT_URL = 'https://torrea.fr/product/blend-personnalise-torrea-tailor/';
+
 const ROAST_LABELS = { light: 'Light', medium: 'Medium', dark: 'Dark' };
 const METHOD_LABELS = {
   espresso: 'Espresso',
@@ -12,7 +16,24 @@ const METHOD_LABELS = {
   piston: 'Piston (French Press)',
 };
 
-function buildMailto(result, quiz) {
+function buildOrderUrl(result) {
+  // Composition encodée en lisible : 60-capucas_30-palanda_10-el_triunfo
+  const blend = result.blend.composition
+    .map(({ coffee, percentage }) => `${percentage}-${coffee.id}`)
+    .join('_');
+
+  const params = new URLSearchParams({
+    archetype: result.archetype.id,
+    archetype_name: result.archetype.name,
+    method: result.blend.method,
+    roast: result.blend.roast_level,
+    blend,
+  });
+
+  return `${BLEND_PRODUCT_URL}?${params.toString()}`;
+}
+
+function buildMailto(result) {
   const composition = result.blend.composition
     .map(({ coffee, percentage }) => `- ${percentage}% ${coffee.name} (${coffee.origin})`)
     .join('\n');
@@ -49,13 +70,14 @@ Merci !`;
 
 export default function OrderRecap({ quiz, onBack }) {
   const result = useMemo(() => match(quiz, { coffees, archetypes }), [quiz]);
-  const mailtoUrl = useMemo(() => buildMailto(result, quiz), [result, quiz]);
+  const orderUrl = useMemo(() => buildOrderUrl(result), [result]);
+  const mailtoUrl = useMemo(() => buildMailto(result), [result]);
 
   return (
     <div className="recap">
       <h2 className="recap__title">Récapitulatif de ta commande</h2>
       <p className="recap__subtitle">
-        Vérifie ta commande, puis envoie-la-nous : nous préparerons ton blend à la torréfaction choisie et te recontacterons pour finaliser le paiement et la livraison.
+        Vérifie ta commande, puis choisis ton poids et règle directement par carte sur notre boutique.
       </p>
 
       <section className="recap__block">
@@ -87,8 +109,11 @@ export default function OrderRecap({ quiz, onBack }) {
       </section>
 
       <div className="recap__actions">
-        <a className="cta" href={mailtoUrl}>
-          Envoyer ma commande
+        <a className="cta" href={orderUrl} target="_blank" rel="noopener noreferrer">
+          Commander & payer
+        </a>
+        <a className="cta cta--secondary" href={mailtoUrl}>
+          Envoyer par email
         </a>
         <button type="button" className="cta cta--secondary" onClick={onBack}>
           ← Modifier
@@ -96,7 +121,9 @@ export default function OrderRecap({ quiz, onBack }) {
       </div>
 
       <p className="recap__hint">
-        En cliquant sur « Envoyer ma commande », ton application mail s'ouvre avec le récap pré-rempli. Complète tes coordonnées (nom, téléphone, adresse) puis envoie. Nous te recontacterons rapidement pour le paiement et la livraison.
+        « Commander & payer » t'amène sur notre boutique pour choisir le poids (125g, 250g, 500g, 1000g) et régler par carte. La composition de ton blend nous est transmise automatiquement.
+        <br /><br />
+        Si tu préfères passer par email, « Envoyer par email » ouvre ton application mail avec le récap pré-rempli.
       </p>
     </div>
   );
