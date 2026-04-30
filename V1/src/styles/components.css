@@ -256,3 +256,14 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
   pointer-events: none;
 }
 .recap__hint--warn { color: #B85C2A; opacity: 1; font-weight: 500; }
+
+.recap__next-step {
+  background: #FFF8EE;
+  border: 1px solid #E8D8B8;
+  border-radius: 0.875rem;
+  padding: 1rem 1.25rem;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+}
