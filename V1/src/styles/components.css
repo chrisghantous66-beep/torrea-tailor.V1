@@ -267,3 +267,9 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
   line-height: 1.5;
   text-align: center;
 }
+
+.bubble--recommended { border-color: #D4A24C; }
+.bubble--recommended.bubble--selected { border-color: var(--color-bubble-selected); }
+.bubble__star { color: #D4A24C; font-weight: 600; }
+.bubble--selected .bubble__star { color: #FFE4B0; }
+.bubble-question__hint { font-size: 0.85rem; color: var(--color-text); opacity: 0.65; text-align: center; margin-top: 0.5rem; }

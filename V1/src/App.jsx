@@ -7,8 +7,8 @@ import Result from './components/Result/Result.jsx';
 import OrderRecap from './components/Result/OrderRecap.jsx';
 import { saveQuizState, loadQuizState, clearQuizState } from './lib/storage.js';
 
-const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'deepen', 'q5', 'q6', 'q7', 'q8', 'result', 'order'];
-const TOTAL_MANDATORY = 5;
+const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'deepen', 'q6', 'q7', 'q8', 'q9', 'result', 'order'];
+const TOTAL_MANDATORY = 6;
 
 const QUESTIONS = {
   q0: {
@@ -53,21 +53,60 @@ const QUESTIONS = {
       { id: 'equilibre', label: 'Équilibré' },
       { id: 'corse', label: 'Corsé' },
     ],
+    recommendations: {
+      basedOn: 'brewing_method',
+      map: {
+        espresso: ['equilibre', 'corse'],
+        filtre: ['doux', 'equilibre'],
+        moka: ['equilibre', 'corse'],
+        aeropress: ['doux', 'equilibre'],
+        piston: ['equilibre', 'corse'],
+      },
+    },
   },
   q4: {
     key: 'roast_level',
     question: 'Niveau de torréfaction ?',
-    next: 'deepen',
+    next: 'q5',
     options: [
       { id: 'light', label: 'Light — Vif, fruité, floral' },
       { id: 'medium', label: 'Medium — Équilibré, polyvalent' },
       { id: 'dark', label: 'Dark — Corsé, chocolaté' },
     ],
+    recommendations: {
+      basedOn: 'brewing_method',
+      map: {
+        espresso: ['medium', 'dark'],
+        filtre: ['light', 'medium'],
+        moka: ['medium', 'dark'],
+        aeropress: ['light', 'medium'],
+        piston: ['medium', 'dark'],
+      },
+    },
   },
   q5: {
+    key: 'grind_type',
+    question: 'Café en grain ou café moulu ?',
+    next: 'deepen',
+    options: [
+      { id: 'grain', label: 'En grain' },
+      { id: 'moulu', label: 'Moulu' },
+    ],
+    recommendations: {
+      basedOn: 'brewing_method',
+      map: {
+        espresso: ['grain'],
+        filtre: ['grain'],
+        moka: ['grain'],
+        aeropress: ['grain'],
+        piston: ['grain'],
+      },
+    },
+  },
+  q6: {
     key: 'notes_specifiques',
     question: 'Des notes que tu adores ? (optionnel, plusieurs choix)',
-    next: 'q6',
+    next: 'q7',
     multi: true,
     options: [
       { id: 'chocolat', label: 'Chocolat' },
@@ -78,27 +117,27 @@ const QUESTIONS = {
       { id: 'pêche', label: 'Pêche' },
     ],
   },
-  q6: {
+  q7: {
     key: 'experience_level',
     question: 'Ton niveau avec le café ?',
-    next: 'q7',
+    next: 'q8',
     options: [
       { id: 'debutant', label: 'Débutant' },
       { id: 'amateur', label: 'Amateur' },
       { id: 'connaisseur', label: 'Connaisseur' },
     ],
   },
-  q7: {
+  q8: {
     key: 'acidite_toleree',
     question: 'Tu aimes l\'acidité ?',
-    next: 'q8',
+    next: 'q9',
     options: [
       { id: 'faible', label: 'Pas trop' },
       { id: 'moyenne', label: 'Modérée' },
       { id: 'haute', label: 'Beaucoup' },
     ],
   },
-  q8: {
+  q9: {
     key: 'consommation',
     question: 'Combien de cafés par jour ?',
     next: 'result',
@@ -156,14 +195,14 @@ export default function App() {
   };
 
   const stepIndex = STEPS.indexOf(step);
-  const showProgress = stepIndex >= 1 && stepIndex <= 5;
+  const showProgress = stepIndex >= 1 && stepIndex <= 6;
   const canGoBack = stepIndex > 1 && step !== 'result' && step !== 'order';
 
   const goBack = () => {
     if (stepIndex > 1) {
       const prev = STEPS[stepIndex - 1];
       // Skip "deepen" en arrière (il n'a pas d'état à restaurer)
-      setStep(prev === 'deepen' ? 'q4' : prev);
+      setStep(prev === 'deepen' ? 'q5' : prev);
     }
   };
 
@@ -181,6 +220,13 @@ export default function App() {
     } catch {
       // utilisateur a annulé le partage natif — silencieux
     }
+  };
+
+  const computeRecommendedIds = (q, quiz) => {
+    if (!q.recommendations) return [];
+    const dependsOnValue = quiz[q.recommendations.basedOn];
+    if (!dependsOnValue) return [];
+    return q.recommendations.map[dependsOnValue] || [];
   };
 
   return (
@@ -202,13 +248,15 @@ export default function App() {
 
       {step === 'welcome' && <Welcome onStart={() => setStep('q0')} />}
 
-      {['q0','q1','q2','q3','q4','q5','q6','q7','q8'].includes(step) && (() => {
+      {['q0','q1','q2','q3','q4','q5','q6','q7','q8','q9'].includes(step) && (() => {
         const q = QUESTIONS[step];
+        const recommendedIds = computeRecommendedIds(q, quiz);
         return (
           <BubbleQuestion
             question={q.question}
             options={q.options}
             value={quiz[q.key]}
+            recommendedIds={recommendedIds}
             onChange={(val) => {
               if (q.multi) {
                 setQuiz(prev => ({ ...prev, [q.key]: val }));
@@ -221,16 +269,16 @@ export default function App() {
         );
       })()}
 
-      {step === 'q5' && quiz.notes_specifiques && quiz.notes_specifiques.length > 0 && (
+      {step === 'q6' && quiz.notes_specifiques && quiz.notes_specifiques.length > 0 && (
         <div style={{textAlign:'center', marginTop:'1rem'}}>
-          <button className="cta" onClick={() => setStep(QUESTIONS.q5.next)}>Suivant</button>
+          <button className="cta" onClick={() => setStep(QUESTIONS.q6.next)}>Suivant</button>
         </div>
       )}
 
       {step === 'deepen' && (
         <DeepenPrompt
           onShow={() => setStep('result')}
-          onDeepen={() => setStep('q5')}
+          onDeepen={() => setStep('q6')}
         />
       )}
 

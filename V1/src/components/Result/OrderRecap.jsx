@@ -7,6 +7,7 @@ import { match } from '../../lib/matching.js';
 const BLEND_PRODUCT_URL = 'https://torrea.fr/product/blend-personnalise-torrea-tailor/';
 
 const ROAST_LABELS = { light: 'Light', medium: 'Medium', dark: 'Dark' };
+const GRIND_LABELS = { grain: 'En grain', moulu: 'Moulu' };
 const METHOD_LABELS = {
   espresso: 'Espresso',
   filtre: 'V60 / Filtre',
@@ -15,25 +16,27 @@ const METHOD_LABELS = {
   piston: 'Piston (French Press)',
 };
 
-function buildOrderUrl(result) {
+function buildOrderUrl(result, quiz) {
   const blend = result.blend.composition
     .map(({ coffee, percentage }) => `${percentage}-${coffee.id}`)
     .join(',');
 
-  const params = new URLSearchParams({
+  const paramsObj = {
     archetype: result.archetype.id,
     archetype_name: result.archetype.name,
     method: result.blend.method,
     roast: result.blend.roast_level,
     blend,
-  });
+  };
+  if (quiz.grind_type) paramsObj.grind = quiz.grind_type;
 
+  const params = new URLSearchParams(paramsObj);
   return `${BLEND_PRODUCT_URL}?${params.toString()}`;
 }
 
 export default function OrderRecap({ quiz, onBack }) {
   const result = useMemo(() => match(quiz, { coffees, archetypes }), [quiz]);
-  const orderUrl = useMemo(() => buildOrderUrl(result), [result]);
+  const orderUrl = useMemo(() => buildOrderUrl(result, quiz), [result, quiz]);
 
   return (
     <div className="recap">
@@ -57,6 +60,13 @@ export default function OrderRecap({ quiz, onBack }) {
         <p className="recap__eyebrow">Niveau de torréfaction</p>
         <p className="recap__value">{ROAST_LABELS[result.blend.roast_level] || result.blend.roast_level}</p>
       </section>
+
+      {quiz.grind_type && (
+        <section className="recap__block">
+          <p className="recap__eyebrow">Mouture</p>
+          <p className="recap__value">{GRIND_LABELS[quiz.grind_type] || quiz.grind_type}</p>
+        </section>
+      )}
 
       <section className="recap__block">
         <p className="recap__eyebrow">Composition du blend</p>
