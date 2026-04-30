@@ -20,7 +20,7 @@ const QUESTIONS = {
       { id: 'filtre', label: 'V60 / Filtre' },
       { id: 'moka', label: 'Cafetière italienne' },
       { id: 'aeropress', label: 'Aeropress' },
-      { id: 'piston', label: 'Piston' },
+      { id: 'piston', label: 'Piston (French Press)' },
     ],
   },
   q1: {
@@ -60,7 +60,7 @@ const QUESTIONS = {
         filtre: ['doux', 'equilibre'],
         moka: ['equilibre', 'corse'],
         aeropress: ['doux', 'equilibre'],
-        piston: ['equilibre', 'corse'],
+        piston: ['doux', 'equilibre', 'corse'],
       },
     },
   },
@@ -80,7 +80,7 @@ const QUESTIONS = {
         filtre: ['light', 'medium'],
         moka: ['medium', 'dark'],
         aeropress: ['light', 'medium'],
-        piston: ['medium', 'dark'],
+        piston: ['light', 'medium', 'dark'],
       },
     },
   },
@@ -92,16 +92,6 @@ const QUESTIONS = {
       { id: 'grain', label: 'En grain' },
       { id: 'moulu', label: 'Moulu' },
     ],
-    recommendations: {
-      basedOn: 'brewing_method',
-      map: {
-        espresso: ['grain'],
-        filtre: ['grain'],
-        moka: ['grain'],
-        aeropress: ['grain'],
-        piston: ['grain'],
-      },
-    },
   },
   q6: {
     key: 'notes_specifiques',
