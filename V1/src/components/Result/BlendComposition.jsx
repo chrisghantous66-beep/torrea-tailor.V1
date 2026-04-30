@@ -4,7 +4,7 @@ const ROAST_LABELS = {
   dark: 'Torréfaction dark (corsée & chocolatée)',
 };
 
-export default function BlendComposition({ blend }) {
+export default function BlendComposition({ blend, onOrder }) {
   return (
     <section className="blend">
       <h3 className="blend__title">Notre blend pour toi</h3>
@@ -35,9 +35,9 @@ export default function BlendComposition({ blend }) {
         ))}
       </ul>
       <p className="blend__story">{blend.story}</p>
-      <a className="cta" href="https://torrea.fr/" target="_blank" rel="noopener noreferrer">
+      <button type="button" className="cta" onClick={onOrder}>
         Le commander
-      </a>
+      </button>
     </section>
   );
 }

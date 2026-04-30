@@ -205,3 +205,25 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
 .result__footer { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; padding: 1rem; }
 
 .cta--small { display: inline-block; padding: 0.55rem 1.25rem; font-size: 0.95rem; margin-top: 0.5rem; text-decoration: none; }
+
+.recap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.recap__title { color: var(--color-primary); font-size: clamp(1.5rem, 4vw, 2rem); text-align: center; }
+.recap__subtitle { color: var(--color-text); opacity: 0.8; text-align: center; line-height: 1.5; max-width: 600px; margin: 0 auto 1rem; }
+.recap__block { background: white; border: 1px solid var(--color-bubble-border); border-radius: 0.875rem; padding: 1.25rem 1.5rem; }
+.recap__eyebrow { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text); opacity: 0.6; margin-bottom: 0.5rem; }
+.recap__archetype { color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.25rem; }
+.recap__tagline { font-style: italic; color: var(--color-text); opacity: 0.85; }
+.recap__value { color: var(--color-text); font-size: 1.125rem; }
+.recap__composition { list-style: none; padding: 0; }
+.recap__composition li { padding: 0.5rem 0; border-bottom: 1px dashed var(--color-bubble-border); }
+.recap__composition li:last-child { border-bottom: none; }
+.recap__origin { color: var(--color-text); opacity: 0.7; }
+.recap__actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; padding: 1rem 0; }
+.recap__hint { font-size: 0.85rem; color: var(--color-text); opacity: 0.65; line-height: 1.5; text-align: center; max-width: 600px; margin: 0 auto; }

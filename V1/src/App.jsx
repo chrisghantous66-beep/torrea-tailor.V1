@@ -4,9 +4,10 @@ import ProgressBar from './components/ProgressBar.jsx';
 import BubbleQuestion from './components/BubbleQuestion.jsx';
 import DeepenPrompt from './components/DeepenPrompt.jsx';
 import Result from './components/Result/Result.jsx';
+import OrderRecap from './components/Result/OrderRecap.jsx';
 import { saveQuizState, loadQuizState, clearQuizState } from './lib/storage.js';
 
-const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'deepen', 'q5', 'q6', 'q7', 'q8', 'result'];
+const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'deepen', 'q5', 'q6', 'q7', 'q8', 'result', 'order'];
 const TOTAL_MANDATORY = 5;
 
 const QUESTIONS = {
@@ -156,7 +157,7 @@ export default function App() {
 
   const stepIndex = STEPS.indexOf(step);
   const showProgress = stepIndex >= 1 && stepIndex <= 5;
-  const canGoBack = stepIndex > 1 && step !== 'result';
+  const canGoBack = stepIndex > 1 && step !== 'result' && step !== 'order';
 
   const goBack = () => {
     if (stepIndex > 1) {
@@ -234,7 +235,16 @@ export default function App() {
       )}
 
       {step === 'result' && (
-        <Result quiz={quiz} onRestart={restart} onShare={handleShare} />
+        <Result
+          quiz={quiz}
+          onRestart={restart}
+          onShare={handleShare}
+          onOrder={() => setStep('order')}
+        />
+      )}
+
+      {step === 'order' && (
+        <OrderRecap quiz={quiz} onBack={() => setStep('result')} />
       )}
     </main>
   );
