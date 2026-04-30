@@ -20,7 +20,7 @@ const METHOD_LABELS = {
 function buildOrderUrl(result, form) {
   const blend = result.blend.composition
     .map(({ coffee, percentage }) => `${percentage}-${coffee.id}`)
-    .join('_');
+    .join(',');
 
   const params = new URLSearchParams({
     archetype: result.archetype.id,
