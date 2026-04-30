@@ -9,6 +9,7 @@
     "default_roast": "medium",
     "flavor_tags": ["gourmand", "chocolate", "reconfortant"],
     "best_for": ["espresso", "moka", "filtre"],
+    "product_url": "https://torrea.fr/product/cafe-capucas-honduras-commerce-equitable/",
     "short_story": "Un Honduras grand cru aux notes profondes de chocolat et caramel."
   },
   {
@@ -21,6 +22,7 @@
     "default_roast": "medium",
     "flavor_tags": ["vif", "fruite"],
     "best_for": ["filtre", "aeropress"],
+    "product_url": "https://torrea.fr/product/cafe-el-palomar-perou-commerce-equitable/",
     "short_story": "Un Pérou éclatant, entre fruits secs et fraîcheur d'agrumes."
   },
   {
@@ -33,6 +35,7 @@
     "default_roast": "medium",
     "flavor_tags": ["gourmand", "equilibre", "accessible"],
     "best_for": ["espresso", "moka", "filtre", "piston"],
+    "product_url": "https://torrea.fr/product/cafe-triunfo-mexique-commerce-equitable/",
     "short_story": "Un Mexique chocolaté et accessible, parfait pour découvrir le café de spécialité."
   },
   {
@@ -45,6 +48,7 @@
     "default_roast": "medium",
     "flavor_tags": ["gourmand", "chocolate", "rond"],
     "best_for": ["espresso", "moka"],
+    "product_url": "https://torrea.fr/product/cafe-equateur-palanda-commerce-equitable/",
     "short_story": "Un Équateur grand cru, dense et miellé, à la rondeur exceptionnelle."
   },
   {
@@ -57,6 +61,7 @@
     "default_roast": "light",
     "flavor_tags": ["complexe", "floral"],
     "best_for": ["filtre", "aeropress"],
+    "product_url": "https://torrea.fr/product/cafe-kitche-guatemala-commerce-equitable/",
     "short_story": "Un Guatemala complexe, aux notes florales et de fruits secs."
   },
   {
@@ -69,6 +74,7 @@
     "default_roast": "medium",
     "flavor_tags": ["vif", "fruite", "complexe"],
     "best_for": ["filtre", "aeropress", "espresso"],
+    "product_url": "https://torrea.fr/product/cafe-ethiopie-salomon-commerce-equitable/",
     "short_story": "Une Éthiopie expressive, du citron à la pêche, avec une douceur de caramel."
   }
 ]

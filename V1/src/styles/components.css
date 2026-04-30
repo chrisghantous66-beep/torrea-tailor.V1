@@ -203,3 +203,5 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
 .back-btn:hover { background: var(--color-bubble-border); opacity: 1; }
 
 .result__footer { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; padding: 1rem; }
+
+.cta--small { display: inline-block; padding: 0.55rem 1.25rem; font-size: 0.95rem; margin-top: 0.5rem; text-decoration: none; }
