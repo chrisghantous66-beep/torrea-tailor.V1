@@ -398,3 +398,45 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
   pointer-events: none;
   z-index: 0;
 }
+
+/* === Hero image — Welcome screen === */
+.welcome {
+  background-image:
+    linear-gradient(rgba(46, 24, 16, 0.45), rgba(46, 24, 16, 0.6)),
+    url('/img/hero.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 1.25rem;
+  min-height: 80vh;
+  margin: 0 1rem;
+}
+
+/* Désactive le gradient placeholder posé en starter pack */
+.welcome::before { display: none; }
+
+/* Titre + sous-titre en blanc sur la photo */
+.welcome__title {
+  color: white;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.35);
+}
+.welcome__subtitle {
+  color: white;
+  opacity: 0.95;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Branches déco passent en blanc translucide pour s'intégrer à la photo */
+.welcome__decor { color: white; opacity: 0.32; }
+
+/* Grains de café en or pour contraster sur la photo sombre */
+.welcome__beans { color: var(--color-gold); opacity: 1; }
+
+/* CTA hero raffiné — accent cuivre lumineux */
+.cta--hero {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #95591F 100%);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+.cta--hero:hover {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.4);
+}
