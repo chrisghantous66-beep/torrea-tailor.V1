@@ -1,13 +1,37 @@
 :root {
   --color-primary: #5C3A21;
+  --color-primary-deep: #3E2A1A;
+  --color-accent: #B87333;
   --color-bg: #FAF6F1;
+  --color-paper: #F5EBD9;
   --color-text: #2E1810;
   --color-bubble-bg: #FFFFFF;
   --color-bubble-border: #D4C5B0;
   --color-bubble-selected: #5C3A21;
+  --color-gold: #D4A24C;
   --radius-bubble: 9999px;
   --transition: 200ms ease;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
+
+/* Titres en serif éditorial */
+.welcome__title,
+.bubble-question__title,
+.deepen__title,
+.archetype-card__name,
+.blend__title,
+.alternatives__title,
+.recap__title,
+.recap__archetype {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.welcome__title { font-weight: 300; font-style: italic; }
+.archetype-card__name { font-weight: 500; font-style: italic; }
+.recap__archetype { font-style: italic; }
 
 .bubble-question {
   display: flex;
@@ -273,3 +297,104 @@ main { position: relative; min-height: 100vh; padding-top: 3rem; }
 .bubble__star { color: #D4A24C; font-weight: 600; }
 .bubble--selected .bubble__star { color: #FFE4B0; }
 .bubble-question__hint { font-size: 0.85rem; color: var(--color-text); opacity: 0.65; text-align: center; margin-top: 0.5rem; }
+
+/* === V1.4 Starter Pack — décors botaniques + raffinements visuels === */
+
+/* Welcome screen — décor branches + grains */
+.welcome { position: relative; overflow: hidden; }
+.welcome__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.welcome__decor {
+  position: absolute;
+  width: 90px;
+  color: var(--color-primary);
+  opacity: 0.18;
+  pointer-events: none;
+  z-index: 1;
+}
+.welcome__decor--top-left {
+  top: -40px;
+  left: -10px;
+  transform: rotate(-15deg);
+}
+.welcome__decor--bottom-right {
+  bottom: -40px;
+  right: -10px;
+  transform: rotate(165deg);
+}
+.welcome__beans {
+  width: 80px;
+  color: var(--color-accent);
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .welcome__decor { width: 130px; }
+  .welcome__decor--top-left { top: -20px; left: 20px; }
+  .welcome__decor--bottom-right { bottom: -20px; right: 20px; }
+}
+
+/* CTA accueil — accent cuivre subtil */
+.cta--hero {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-deep) 100%);
+  box-shadow: 0 4px 16px rgba(92, 58, 33, 0.2);
+}
+
+/* Archetype card — feuilles décoratives en arrière-plan */
+.archetype-card { position: relative; overflow: hidden; }
+.archetype-card__leaf {
+  position: absolute;
+  width: 60px;
+  color: white;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.archetype-card__leaf--left {
+  top: 20px;
+  left: 18px;
+  transform: rotate(-25deg);
+}
+.archetype-card__leaf--right {
+  bottom: 20px;
+  right: 18px;
+  transform: rotate(155deg);
+}
+@media (min-width: 768px) {
+  .archetype-card__leaf { width: 90px; }
+}
+
+/* Bulle sélectionnée — touche cuivre subtile */
+.bubble--selected {
+  box-shadow: 0 4px 12px rgba(92, 58, 33, 0.18);
+}
+
+/* Bordure dorée pour les blocks récap quand on hover */
+.recap__block { transition: border-color var(--transition); }
+.recap__block:hover { border-color: var(--color-accent); }
+
+/* Eyebrow style raffiné */
+.recap__eyebrow,
+.archetype-card__eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+}
+
+/* Hero image area — placeholder gradient en attendant l'image éventuelle */
+.welcome::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at top right, rgba(184, 115, 51, 0.12), transparent 50%),
+    radial-gradient(ellipse at bottom left, rgba(92, 58, 33, 0.10), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}

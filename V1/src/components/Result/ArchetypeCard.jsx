@@ -1,6 +1,10 @@
+import { CoffeeLeaf } from '../BotanicalDecor.jsx';
+
 export default function ArchetypeCard({ archetype }) {
   return (
     <section className="archetype-card" style={{ '--accent': archetype.accent_color }}>
+      <CoffeeLeaf className="archetype-card__leaf archetype-card__leaf--left" />
+      <CoffeeLeaf className="archetype-card__leaf archetype-card__leaf--right" />
       <div className="archetype-card__header">
         <p className="archetype-card__eyebrow">Ton profil</p>
         <h2 className="archetype-card__name">{archetype.name}</h2>
