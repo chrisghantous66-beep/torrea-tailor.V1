@@ -80,6 +80,28 @@ export default function OrderRecap({ quiz, onBack }) {
         </ul>
       </section>
 
+      <aside className="recap__note">
+        <h4 className="recap__note-title">Pour bien apprécier les arômes de ton blend</h4>
+        <p>
+          Comme dans le vin, les arômes du café ne sont pas ajoutés : ils émergent naturellement
+          des grains, du terroir et de la torréfaction. Les notes que nous indiquons
+          (chocolat, agrumes, fruits secs…) sont des <strong>repères sensoriels</strong>
+          — ce que ton cerveau associe aux molécules présentes dans la tasse.
+        </p>
+        <p className="recap__note-subtitle">Trois gestes pour les percevoir :</p>
+        <ul className="recap__note-list">
+          <li><strong>Sens</strong> la tasse avant la première gorgée — l'odorat capte 80% de l'arôme</li>
+          <li><strong>Bois lentement</strong>, laisse le café tapisser ta bouche</li>
+          <li>Repère ce qui change entre l'<strong>attaque</strong> (premier contact), le <strong>milieu</strong> et la <strong>finale</strong> (après avoir avalé)</li>
+        </ul>
+        <p>
+          <strong>Chaque palais est unique</strong> : tes ressentis peuvent différer des nôtres,
+          et un même blend ne révélera pas les mêmes nuances en espresso, en V60 ou en piston —
+          la mouture, la température de l'eau et la façon de préparer ton café jouent aussi un rôle.
+          Pas d'inquiétude si tu ne captes pas tout au début : le palais s'éduque tasse après tasse.
+        </p>
+      </aside>
+
       <p className="recap__next-step">
         ℹ️ Tu choisiras le poids (125g, 250g, 500g ou 1kg), la quantité et la mouture à l'étape suivante.
       </p>
