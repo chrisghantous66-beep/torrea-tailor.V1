@@ -1,3 +1,73 @@
+/* ══════════════════════════════════════════════════════════
+   PROFIL SENSORIEL — Diagramme de Kiviat
+   ══════════════════════════════════════════════════════════ */
+
+.sensory-profile {
+  background: white;
+  border: 1px solid var(--color-bubble-border);
+  border-radius: 0.875rem;
+  padding: 1.5rem 1rem 1rem;
+  transition: border-color var(--transition);
+}
+.sensory-profile:hover { border-color: var(--color-accent); }
+
+.sensory-profile__header {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.sensory-profile__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 5px;
+}
+
+.sensory-profile__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--color-primary);
+  margin: 0 0 3px;
+  letter-spacing: -0.01em;
+}
+
+.sensory-profile__sub {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-text);
+  opacity: 0.6;
+  margin: 0 0 6px;
+  letter-spacing: 0.06em;
+}
+
+.sensory-profile__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.sensory-profile__footer {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  opacity: 0.45;
+  margin: 6px 0 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   DESIGN SYSTEM — Variables & base
+   ══════════════════════════════════════════════════════════ */
+
 :root {
   --color-primary: #5C3A21;
   --color-primary-deep: #3E2A1A;

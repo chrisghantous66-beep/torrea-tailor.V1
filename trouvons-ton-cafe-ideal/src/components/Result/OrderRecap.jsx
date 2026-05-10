@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import coffees from '../../data/coffees.json';
 import archetypes from '../../data/archetypes.json';
 import { match } from '../../lib/matching.js';
+import SensoryProfile from './SensoryProfile.jsx';
 
 // 👉 À MODIFIER une fois le produit WooCommerce créé sur torrea.fr.
 const BLEND_PRODUCT_URL = 'https://torrea.fr/product/blend-personnalise-torrea-tailor/';
@@ -50,6 +51,8 @@ export default function OrderRecap({ quiz, onBack }) {
         <h3 className="recap__archetype">{result.archetype.name}</h3>
         <p className="recap__tagline">{result.archetype.tagline}</p>
       </section>
+
+      <SensoryProfile profile={result.archetype.sensory_profile} />
 
       <section className="recap__block">
         <p className="recap__eyebrow">Mode d'extraction</p>
