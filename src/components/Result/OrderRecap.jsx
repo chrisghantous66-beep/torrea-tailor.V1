@@ -35,7 +35,7 @@ function buildOrderUrl(result, quiz) {
   return `${BLEND_PRODUCT_URL}?${params.toString()}`;
 }
 
-export default function OrderRecap({ quiz, onBack }) {
+export default function OrderRecap({ quiz, onBack, onEmail }) {
   const result = useMemo(() => match(quiz, { coffees, archetypes }), [quiz]);
   const orderUrl = useMemo(() => buildOrderUrl(result, quiz), [result, quiz]);
 
@@ -113,6 +113,9 @@ export default function OrderRecap({ quiz, onBack }) {
         <a className="cta" href={orderUrl} target="_blank" rel="noopener noreferrer">
           Commander & payer
         </a>
+        <button type="button" className="cta cta--secondary" onClick={onEmail}>
+          Envoyer la commande par email
+        </button>
         <button type="button" className="cta cta--secondary" onClick={onBack}>
           ← Modifier
         </button>

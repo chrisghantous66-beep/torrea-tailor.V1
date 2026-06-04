@@ -5,9 +5,10 @@ import BubbleQuestion from './components/BubbleQuestion.jsx';
 import DeepenPrompt from './components/DeepenPrompt.jsx';
 import Result from './components/Result/Result.jsx';
 import OrderRecap from './components/Result/OrderRecap.jsx';
+import EmailRecap from './components/Result/EmailRecap.jsx';
 import { saveQuizState, loadQuizState, clearQuizState } from './lib/storage.js';
 
-const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'deepen', 'q6', 'q7', 'q8', 'q9', 'result', 'order'];
+const STEPS = ['welcome', 'q0', 'q1', 'q2', 'q3', 'q4', 'q5', 'deepen', 'q6', 'q7', 'q8', 'q9', 'result', 'order', 'email'];
 const TOTAL_MANDATORY = 6;
 
 const QUESTIONS = {
@@ -186,7 +187,7 @@ export default function App() {
 
   const stepIndex = STEPS.indexOf(step);
   const showProgress = stepIndex >= 1 && stepIndex <= 6;
-  const canGoBack = stepIndex > 1 && step !== 'result' && step !== 'order';
+  const canGoBack = stepIndex > 1 && step !== 'result' && step !== 'order' && step !== 'email';
 
   const goBack = () => {
     if (stepIndex > 1) {
@@ -282,7 +283,15 @@ export default function App() {
       )}
 
       {step === 'order' && (
-        <OrderRecap quiz={quiz} onBack={() => setStep('result')} />
+        <OrderRecap
+          quiz={quiz}
+          onBack={() => setStep('result')}
+          onEmail={() => setStep('email')}
+        />
+      )}
+
+      {step === 'email' && (
+        <EmailRecap quiz={quiz} onBack={() => setStep('order')} />
       )}
     </main>
   );
