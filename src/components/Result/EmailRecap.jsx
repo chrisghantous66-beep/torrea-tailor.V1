@@ -18,7 +18,12 @@ const METHOD_LABELS = {
 
 const WEIGHTS = ['125g', '250g', '500g', '1kg'];
 
-function buildMailto(result, quiz, weight, quantity, customer) {
+const PICKUP_LOCATIONS = [
+  'Marché Place de la Sardane à Amélie-les-Bains — Tous les jeudis matin',
+  'Marché de Producteurs de Pays à Arles-sur-Tech — Tous les mercredis matin',
+];
+
+function buildMailto(result, quiz, weight, quantity, customer, pickup) {
   const methodLabel = METHOD_LABELS[result.blend.method] || result.blend.method;
   const roastLabel = ROAST_LABELS[result.blend.roast_level] || result.blend.roast_level;
   const grindLabel = quiz.grind_type
@@ -44,6 +49,7 @@ function buildMailto(result, quiz, weight, quantity, customer) {
     `Mouture : ${grindLabel}`,
     `Poids : ${weight}`,
     `Quantité : ${quantity}`,
+    `Lieu de retrait : ${pickup}`,
     '',
     'Composition du blend :',
     ...result.blend.composition.map(
@@ -63,6 +69,7 @@ export default function EmailRecap({ quiz, onBack }) {
   const result = useMemo(() => match(quiz, { coffees, archetypes }), [quiz]);
   const [weight, setWeight] = useState('250g');
   const [quantity, setQuantity] = useState(1);
+  const [pickup, setPickup] = useState(PICKUP_LOCATIONS[0]);
   const [customer, setCustomer] = useState({
     firstName: '',
     lastName: '',
@@ -87,7 +94,7 @@ export default function EmailRecap({ quiz, onBack }) {
       email: customer.email.trim(),
       phone: customer.phone.trim(),
     };
-    const mailto = buildMailto(result, quiz, weight, quantity, trimmed);
+    const mailto = buildMailto(result, quiz, weight, quantity, trimmed, pickup);
     window.location.href = mailto;
   };
 
@@ -219,6 +226,21 @@ export default function EmailRecap({ quiz, onBack }) {
                 setQuantity(Number.isNaN(n) || n < 1 ? 1 : n);
               }}
             />
+          </label>
+
+          <label className="recap__field">
+            <span>Lieu de retrait</span>
+            <select
+              className="recap__input"
+              value={pickup}
+              onChange={(e) => setPickup(e.target.value)}
+            >
+              {PICKUP_LOCATIONS.map((loc) => (
+                <option key={loc} value={loc}>
+                  {loc}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
       </section>
