@@ -41,7 +41,7 @@ function buildMailto(result, quiz, weight, quantity, customer, pickup) {
     `Nom : ${customer.lastName}`,
     `Prénom : ${customer.firstName}`,
     `Email : ${customer.email}`,
-    `Téléphone : ${customer.phone}`,
+    `Téléphone : ${customer.phone || 'Non précisé'}`,
     '',
     `Profil : ${result.archetype.name}`,
     `Mode d'extraction : ${methodLabel}`,
@@ -83,8 +83,7 @@ export default function EmailRecap({ quiz, onBack }) {
   const isValid =
     customer.firstName.trim() &&
     customer.lastName.trim() &&
-    EMAIL_RE.test(customer.email.trim()) &&
-    customer.phone.trim();
+    EMAIL_RE.test(customer.email.trim());
 
   const handleSend = () => {
     if (!isValid) return;
@@ -106,9 +105,10 @@ export default function EmailRecap({ quiz, onBack }) {
       </p>
 
       <p className="recap__next-step">
-        ⚠️ La commande par email est réservée aux personnes souhaitant récupérer leur
-        commande <strong>sur place</strong>, sur l'un des marchés où je suis présent.
-        Pour une livraison, utilise plutôt le bouton « Commander &amp; payer ».
+        ℹ️ La commande par email concerne uniquement le retrait <strong>sur place</strong>,
+        sur l'un des marchés où je suis présent. Pour un <strong>envoi par la poste</strong>,
+        merci de passer par le bouton « Commander &amp; payer », qui gère le paiement et la
+        livraison.
       </p>
 
       <section className="recap__block">
@@ -182,7 +182,7 @@ export default function EmailRecap({ quiz, onBack }) {
           </label>
 
           <label className="recap__field">
-            <span>Numéro de téléphone</span>
+            <span>Numéro de téléphone (optionnel)</span>
             <input
               className="recap__input"
               type="tel"
@@ -247,7 +247,7 @@ export default function EmailRecap({ quiz, onBack }) {
 
       {!isValid && (
         <p className="recap__hint recap__hint--warn">
-          Renseigne ton prénom, ton nom, un email valide et ton téléphone pour envoyer ta commande.
+          Renseigne ton prénom, ton nom et un email valide pour envoyer ta commande.
         </p>
       )}
 
